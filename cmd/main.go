@@ -1,7 +1,7 @@
 package main
 
 import (
-	"TicTacGo/internals/board"
+	"TicTacGo/internal/board"
 	"fmt"
 )
 
