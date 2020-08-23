@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-type iBoard interface {
+type boardFunctions interface {
 	PrintBoard()
 	printHeaderFooter()
 	printFiller()

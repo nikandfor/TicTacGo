@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-type iCell interface {
+type cellFunctions interface {
 	getValue() rune
 	setValue(value rune) bool
 	printCell()

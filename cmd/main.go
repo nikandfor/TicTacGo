@@ -1,14 +1,13 @@
 package main
 
 import (
-	"board"
+	"TicTacGo/internals/board"
 	"fmt"
 )
 
 func main() {
 	fmt.Println("Welcome to TicTacGo")
 
-	isFinished := false
 	currentPlayer := 'O'
 	nextPlayer := 'X'
 	board := board.Board{BoardState: [9]board.Cell{
@@ -23,7 +22,7 @@ func main() {
 		board.Cell{Value: '9'},
 	}}
 
-	for !isFinished {
+	for {
 		board.PrintBoard()
 		fmt.Printf("Player '%c' turn\nChoose a cell from 1 to 9\n\n", currentPlayer)
 		choice := 0
