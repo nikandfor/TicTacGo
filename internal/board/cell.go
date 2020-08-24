@@ -4,28 +4,23 @@ import (
 	"fmt"
 )
 
-type cellFunctions interface {
-	getValue() rune
-	setValue(value rune) bool
-	printCell()
-}
+// do not create interfaces just to have interfaces.
+// struct is better if you don't expect it have many different implementations.
 
-type Cell struct {
-	Value rune
-}
+// It's enough to have this
+type Cell rune
 
-func (cell Cell) getValue() rune {
-	return cell.Value
-}
+// no need for method to just read public field.
+// It's idiomatic in go to not add "get" of "Get" to getter names.
 
-func (cell *Cell) setValue(value rune) bool{
-	if cell.Value != 'X' && cell.Value != 'O' {
-		cell.Value = value
-		return true
+// it's idiomatic to use short name for receiver arg
+func (c *Cell) setValue(v rune) bool {
+	if *c == 'X' || *c == 'O' {
+		return false
 	}
-	return false
-}
 
-func (cell *Cell) printCell() {
-	fmt.Printf("   %c   ", cell.getValue())
+	// consider flat code over nested
+	*c = value
+
+	return true
 }
