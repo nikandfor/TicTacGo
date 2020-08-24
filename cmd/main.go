@@ -5,7 +5,9 @@ import (
 
 	// after empty line 3rd-party imports
 
-	"github.com/Kwbmm/TicTacGo/internal/board" // after empty line local module imports
+	// always use full import paths
+	// imternal package is needed only for packages that is explicitly forbidden to use from outside
+	"github.com/Kwbmm/TicTacGo/board" // after empty line local module imports
 )
 
 func main() {
@@ -14,20 +16,12 @@ func main() {
 	currentPlayer := 'O'
 	nextPlayer := 'X'
 
-	board := board.Board{BoardState: [9]board.Cell{ // too complex struct for simple task
-		board.Cell{Value: '1'},
-		board.Cell{Value: '2'},
-		board.Cell{Value: '3'},
-		board.Cell{Value: '4'},
-		board.Cell{Value: '5'},
-		board.Cell{Value: '6'},
-		board.Cell{Value: '7'},
-		board.Cell{Value: '8'},
-		board.Cell{Value: '9'},
-	}}
+	// it's better not to use variable name the same as package name
+	// too complex struct for simple task
+	var b board.Board
 
 	for {
-		board.PrintBoard()
+		b.Print()
 
 		fmt.Printf("Player '%c' turn\nChoose a cell from 1 to 9\n\n", currentPlayer)
 
@@ -43,17 +37,20 @@ func main() {
 
 		// always consider flat code over nested
 
-		if board.SetCellValue(choice-1, currentPlayer) {
+		if !b.MakeMove(choice-1, currentPlayer) {
 			fmt.Println("Invalid move!")
 			continue
 		}
 
-		if board.HasWinner(choice-1, currentPlayer) {
+		if b.HasWinner() {
+			// print result
+			b.Print()
+
 			fmt.Printf("Game won by %c\n", currentPlayer)
 			return
 		}
 
-		if !board.HasEmptyCells() {
+		if !b.HasEmptyCells() {
 			fmt.Println("Game is draw")
 			return
 		}
